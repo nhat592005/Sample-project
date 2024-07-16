@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.example.demo.repository.BuildingRepository;
 import com.example.demo.repository.enity.BuildingEnity;
+import com.example.demo.repository.enity.BuildingFullEnities;
 
 @Repository
 public class BuildingRepositoryImpl implements BuildingRepository  {
@@ -47,12 +48,16 @@ public class BuildingRepositoryImpl implements BuildingRepository  {
             result.add(building);
             //result nơi nhận dữ liệu
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println( "loi la" + e.getMessage());
         }
         return result;
+    }
+    public List< BuildingFullEnities> search (BuildingFullEnities building){
+        
+        return null;
+
     }
         
 }
