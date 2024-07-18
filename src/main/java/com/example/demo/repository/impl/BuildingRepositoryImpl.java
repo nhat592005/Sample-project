@@ -7,12 +7,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
+import com.example.demo.bean.BuildingFullEnities;
 import com.example.demo.repository.BuildingRepository;
 import com.example.demo.repository.enity.BuildingEnity;
-import com.example.demo.repository.enity.BuildingFullEnities;
 
 @Repository
 public class BuildingRepositoryImpl implements BuildingRepository {
@@ -57,35 +58,86 @@ public class BuildingRepositoryImpl implements BuildingRepository {
         return result;
     }
 
+    // dung khi implement vs interface khac
     @Override
-    public List<BuildingFullEnities> search(BuildingFullEnities building) {
+    public List<BuildingFullEnities> search(Map<String, String> map) {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT * FROM building b WHERE 1=1 ");
-        if (building.getName() != null && !building.getName().isEmpty()) {
-            sql.append("AND b.name LIKE '%" + building.getName() + "%'");
-        }
         List<BuildingFullEnities> result = new ArrayList<>();
+        // viet query
+        for (Map.Entry<String, String> x : map.entrySet()) {
+            String key = x.getKey();
+            String value = x.getValue();
+            if (key != null && key.equals("name")) {
+                sql.append("AND b.name LIKE '%" + value + "%' ");
+            }
+            if (key != null && key.equals("floorarea")) {
+                sql.append("AND b.floorarea = " + value + " ");
+            }
+            if (key != null && key.equals("districtid")) {
+                sql.append("AND JOIN district d ON b.districtid = d.id WHERE b.districtid = " + value + " ");
+            }
+            if (key != null && key.equals("ward")) {
+                sql.append("AND b.ward LIKE '%" + value + "%' ");
+            }
+            if (key != null && key.equals("street")) {
+                sql.append("AND b.street LIKE '%" + value + "%' ");
+            }
+            if (key != null && key.equals("numberofbasement")) {
+                sql.append("AND b.numberofbasement = " + value + " ");
+            }
+            if (key != null && key.equals("direction")) {
+                sql.append("AND b.direction LIKE '%" + value + "%' ");
+            }
+            if (key != null && key.equals("level")) {
+                sql.append("AND b.level LIKE '%" + value + "%' ");
+            }
+            if (key != null && key.equals("areafrom")) {
+                sql.append("AND b.floorarea >= " + value);
+            }
+            if (key != null && key.equals("areato")) {
+                sql.append("AND b.floorarea <= " + value);
+            }
+            if (key != null && key.equals("rentfrom")) {
+                sql.append("AND b.rentprice <= " + value);
+            }
+            if (key != null && key.equals("rentto")) {
+                sql.append("AND b.rentprice >= " + value);
+            }
+            if (key != null && key.equals("managername")) {
+                sql.append("AND b.managername LIKE '%" + value + "%' ");
+            }
+            if (key != null && key.equals("managerphonenumber")) {
+                sql.append("AND b.managerphonenumber = " + value + " ");
+            }
+            if (key != null && key.equals("typecode")) {
+                sql.append("JOIN renttype ON b.id = renttype.id AND b.typecode = " + value + " ");
+            }
+        }
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(sql.toString());) {
             while (rs.next()) {
-                BuildingFullEnities building2 = new BuildingFullEnities();
-                building2.setName(rs.getString("name"));
-                building2.setFloorarea(rs.getInt("floorarea"));
-                building2.setDistrictID(rs.getInt("districtid"));
-                building2.setWard(rs.getString("ward"));
-                building2.setStreet(rs.getString("street"));
-                building2.setNumberofbasement(rs.getInt("numberofbasement"));
-                building2.setDirection(rs.getString("direction"));
-                building2.setLevel(rs.getString("level"));
-                building2.setManagername(rs.getString("managername"));
-                building2.setManagerphonenumber(rs.getString("managerphonenumber"));
-                result.add(building2);
+                // ... lam sau
+                BuildingFullEnities building = new BuildingFullEnities();
+                building.setDate(rs.getString("createddate"));
+                building.setName(rs.getString("name"));
+                building.setAdress(rs.getString("ward") + " " + rs.getString("street") + " " + rs.getString("name"));
+                building.setNumberofbasements(rs.getString("numberofbasements"));
+                building.setManagername(rs.getString("managername"));
+                building.setManagerphonenumber(rs.getString("managerphonenumber"));
+                building.setFloorarea(rs.getString("floorarea"));
+                building.setEmptyarea(rs.getString("emptyarea"));
+                building.setRentprice(rs.getString("rentprice"));
+                building.setServicefee(rs.getString("servicefee"));
+                building.setBrokeragefee(rs.getString("brokeragefee"));
+                result.add(building);
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("loi la" + e.getMessage());
+            System.out.println("Da bi loi boi " + e.getMessage());
         }
         return result;
     }
+
 }

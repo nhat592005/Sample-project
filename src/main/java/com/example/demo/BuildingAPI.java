@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.bean.BuildingDTO;
+import com.example.demo.bean.BuildingFullEnities;
 import com.example.demo.service.impl.BuildingServiceImpl;
 import org.springframework.web.bind.annotation.GetMapping;
 //tao ra cai controller de quan ly 4 yeu cau cua web
@@ -18,6 +19,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class BuildingAPI {
     @Autowired
     private BuildingServiceImpl buildingServiceImpl;
+
+    @GetMapping("/api/building/search/")
+    // tra ve 11 cai field ma minh can
+    public List<BuildingFullEnities> search(@RequestParam(required = false) Map<String, String> map) {
+        return null;
+    }
 
     @GetMapping("/api/building/")
     public List<BuildingDTO> getBuilding(@RequestParam(value = "name", required = false) String name,
@@ -40,12 +47,16 @@ public class BuildingAPI {
             String key = pair.getKey();
             String value = pair.getValue();
             if (key.equals("name") && !key.isEmpty()) {
-                sql.append("AND b.name = '%" + value + "%'");
+                sql.append("AND b.name = '%" + value + "%' ");
             }
             if (key.equals("namsinh")) {
-                sql.append("AND b.namsinh = " + value);
+                sql.append("AND b.namsinh = " + value + " ");
+            }
+            if (key.equals("ward")) {
+                sql.append("AND b.ward =" + value + " ");
             }
         }
         return sql.toString();
     }
+
 }
