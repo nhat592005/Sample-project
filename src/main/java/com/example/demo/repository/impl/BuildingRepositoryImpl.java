@@ -58,11 +58,11 @@ public class BuildingRepositoryImpl implements BuildingRepository {
     }
 
     @Override
-    public List<BuildingFullEnities> search(String name) {
+    public List<BuildingFullEnities> search(BuildingFullEnities building) {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT * FROM building b WHERE 1=1 ");
-        if (name != null && !name.isEmpty()) {
-            sql.append("AND b.name LIKE '%" + name + "%'");
+        if (building.getName() != null && !building.getName().isEmpty()) {
+            sql.append("AND b.name LIKE '%" + building.getName() + "%'");
         }
         List<BuildingFullEnities> result = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
