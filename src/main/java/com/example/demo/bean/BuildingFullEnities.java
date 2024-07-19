@@ -12,6 +12,15 @@ public class BuildingFullEnities {
     private String rentprice;
     private String servicefee;
     private String brokeragefee;
+    private String rentarea;
+
+    public String getRentarea() {
+        return rentarea;
+    }
+
+    public void setRentarea(String rentarea) {
+        this.rentarea = rentarea;
+    }
 
     @Override
     public String toString() {

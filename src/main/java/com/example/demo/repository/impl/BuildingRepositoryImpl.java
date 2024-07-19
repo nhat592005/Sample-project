@@ -111,7 +111,10 @@ public class BuildingRepositoryImpl implements BuildingRepository {
                 sql.append("AND b.managerphonenumber = " + value + " ");
             }
             if (key != null && key.equals("typecode")) {
-                sql.append("JOIN renttype ON b.id = renttype.id AND b.typecode = " + value + " ");
+                sql.append("JOIN renttype r ON b.id = r.id AND r.code like '%" + value + "%' ");
+            }
+            if (key != null && key.equals("staffid")) {
+                sql.append("AND staffid = " + value);
             }
         }
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -122,7 +125,7 @@ public class BuildingRepositoryImpl implements BuildingRepository {
                 BuildingFullEnities building = new BuildingFullEnities();
                 building.setDate(rs.getString("createddate"));
                 building.setName(rs.getString("name"));
-                building.setAdress(rs.getString("ward") + " " + rs.getString("street") + " " + rs.getString("name"));
+                building.setAdress(rs.getString("ward") + "," + rs.getString("street") + "," + rs.getString("name"));
                 building.setNumberofbasements(rs.getString("numberofbasements"));
                 building.setManagername(rs.getString("managername"));
                 building.setManagerphonenumber(rs.getString("managerphonenumber"));
@@ -131,6 +134,7 @@ public class BuildingRepositoryImpl implements BuildingRepository {
                 building.setRentprice(rs.getString("rentprice"));
                 building.setServicefee(rs.getString("servicefee"));
                 building.setBrokeragefee(rs.getString("brokeragefee"));
+                // building.setRentarea();
                 result.add(building);
             }
         } catch (SQLException e) {
