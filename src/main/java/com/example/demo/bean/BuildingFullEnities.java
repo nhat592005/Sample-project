@@ -1,42 +1,24 @@
 package com.example.demo.bean;
 
 public class BuildingFullEnities {
-    private String date;
     private String name;
     private String adress;
-    private String numberofbasements;
-    private String managername;
-    private String managerphonenumber;
-    private String floorarea;
-    private String emptyarea;
-    private String rentprice;
-    private String servicefee;
-    private String brokeragefee;
-    private String rentarea;
-
-    public String getRentarea() {
-        return rentarea;
-    }
-
-    public void setRentarea(String rentarea) {
-        this.rentarea = rentarea;
-    }
+    private long numberOfBasement;
+    private String managerName;
+    private String managerPhoneNumber;
+    private long floorArea;
+    private String emptyArea;
+    private long rentPrice;
+    private String serviceFee;
+    private long brokerageFee;
+    private String rentArea;
 
     @Override
     public String toString() {
-        return "BuildingFullEnities [date=" + date + ", name=" + name + ", adress=" + adress + ", numberofbasements="
-                + numberofbasements + ", managername=" + managername + ", managerphone=" + managerphonenumber
-                + ", floorarea="
-                + floorarea + ", emptyarea=" + emptyarea + ", rentprice=" + rentprice + ", servicefee=" + servicefee
-                + ", brokeragefee=" + brokeragefee + "]";
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
+        return "BuildingFullEnities [name=" + name + ", adress=" + adress + ", numberOfBasements=" + numberOfBasement
+                + ", managerName=" + managerName + ", managerPhoneNumber=" + managerPhoneNumber + ", floorArea="
+                + floorArea + ", emptyArea=" + emptyArea + ", rentPrice=" + rentPrice + ", serviceFee=" + serviceFee
+                + ", brokerageFee=" + brokerageFee + ", rentArea=" + rentArea + "]";
     }
 
     public String getName() {
@@ -55,68 +37,76 @@ public class BuildingFullEnities {
         this.adress = adress;
     }
 
-    public String getNumberofbasements() {
-        return numberofbasements;
+    public long getNumberOfBasements() {
+        return numberOfBasement;
     }
 
-    public void setNumberofbasements(String numberofbasements) {
-        this.numberofbasements = numberofbasements;
+    public void setNumberOfBasements(long numberOfBasement) {
+        this.numberOfBasement = numberOfBasement;
     }
 
-    public String getManagername() {
-        return managername;
+    public String getManagerName() {
+        return managerName;
     }
 
-    public void setManagername(String managername) {
-        this.managername = managername;
+    public void setManagerName(String managerName) {
+        this.managerName = managerName;
     }
 
-    public String getManagerphonenumber() {
-        return managerphonenumber;
+    public String getManagerPhoneNumber() {
+        return managerPhoneNumber;
     }
 
-    public void setManagerphonenumber(String managerphone) {
-        this.managerphonenumber = managerphone;
+    public void setManagerPhoneNumber(String managerPhoneNumber) {
+        this.managerPhoneNumber = managerPhoneNumber;
     }
 
-    public String getFloorarea() {
-        return floorarea;
+    public long getFloorArea() {
+        return floorArea;
     }
 
-    public void setFloorarea(String floorarea) {
-        this.floorarea = floorarea;
+    public void setFloorArea(long floorArea) {
+        this.floorArea = floorArea;
     }
 
-    public String getEmptyarea() {
-        return emptyarea;
+    public String getEmptyArea() {
+        return emptyArea;
     }
 
-    public void setEmptyarea(String emptyarea) {
-        this.emptyarea = emptyarea;
+    public void setEmptyArea(String emptyArea) {
+        this.emptyArea = emptyArea;
     }
 
-    public String getRentprice() {
-        return rentprice;
+    public long getRentPrice() {
+        return rentPrice;
     }
 
-    public void setRentprice(String rentprice) {
-        this.rentprice = rentprice;
+    public void setRentPrice(long rentPrice) {
+        this.rentPrice = rentPrice;
     }
 
-    public String getServicefee() {
-        return servicefee;
+    public String getServiceFee() {
+        return serviceFee;
     }
 
-    public void setServicefee(String servicefee) {
-        this.servicefee = servicefee;
+    public void setServiceFee(String serviceFee) {
+        this.serviceFee = serviceFee;
     }
 
-    public String getBrokeragefee() {
-        return brokeragefee;
+    public long getBrokerageFee() {
+        return brokerageFee;
     }
 
-    public void setBrokeragefee(String brokeragefee) {
-        this.brokeragefee = brokeragefee;
+    public void setBrokerageFee(long brokerageFee) {
+        this.brokerageFee = brokerageFee;
+    }
+
+    public String getRentArea() {
+        return rentArea;
+    }
+
+    public void setRentArea(String rentArea) {
+        this.rentArea = rentArea;
     }
 
 }

@@ -1,24 +1,22 @@
 package com.example.demo.repository.impl;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 import org.springframework.stereotype.Repository;
 import com.example.demo.repository.BuildingRepository;
 import com.example.demo.repository.enity.BuildingEnity;
+import com.example.demo.repository.ultis.ConnectionSQL;
 import com.example.demo.repository.ultis.checkStringorNumber;
 
+//nen nho ko dc thieu khong ala k chay dc
 @Repository
 public class BuildingRepositoryImpl implements BuildingRepository {
-
-    static final String DB_URL = "jdbc:mysql://localhost:3306/estatebasic";
-    static final String USER = "nhatdo";
-    static final String PASS = "nhat2353";
 
     public static void jointable(Map<String, Object> params, List<String> typeCode, StringBuilder sql) {
         // nen lam moi thu ro rang theo string hoac j do cx dc
@@ -34,7 +32,7 @@ public class BuildingRepositoryImpl implements BuildingRepository {
         // dasy la value
         String rentAreaTo = (String) params.get("areaTo");
         String rentAreaFrom = (String) params.get("areaFrom");
-        if (rentAreaTo != null && rentAreaTo.equals("") || rentAreaFrom != null && rentAreaFrom.equals("")) {
+        if (rentAreaTo != null && !rentAreaTo.equals("") || rentAreaFrom != null && !rentAreaFrom.equals("")) {
             sql.append(" INNER JOIN rentarea ON b.id = rentarea.buildingid ");
         }
     }
@@ -64,27 +62,32 @@ public class BuildingRepositoryImpl implements BuildingRepository {
             if (staffid != null && !staffid.equals("") && !checkStringorNumber.checkNumber(staffid)) {
                 sql.append(" AND c.staffid = " + it.getValue());
             }
-            if (typeCode != null && typeCode.equals("typeCode")) {
-                sql.append(" AND buildingrenttype.code = " + it.getValue());
+            // doan typecode nay phai xu ly can than
+            if (typeCode != null && typeCode.size() != 0) {
+                List<String> code = new ArrayList<>();
+                for (String item : typeCode) {
+                    code.add("'" + item + "'");
+                }
+                sql.append("AND renttype.code IN (" + String.join(",", code) + ") ");
             }
             String areaTo = (String) params.get("areaTo");
             String areaFrom = (String) params.get("areaFrom");
             if (checkStringorNumber.checkNumber(areaTo) || checkStringorNumber.checkNumber(areaFrom)) {
                 if (areaTo != null && !areaTo.equals("")) {
-                    sql.append(" AND rentarea.value <=" + it.getValue());
+                    sql.append(" AND rentarea.value <= " + it.getValue());
                 }
                 if (areaFrom != null && !areaFrom.equals("")) {
-                    sql.append(" AND rentarea.value >=" + it.getValue());
+                    sql.append(" AND rentarea.value >= " + it.getValue());
                 }
             }
-            String rentAreaTo = (String) params.get("areaTo");
-            String rentAreaFrom = (String) params.get("areaFrom");
+            String rentAreaTo = (String) params.get("rentareato");
+            String rentAreaFrom = (String) params.get("rentareafrom");
             if (checkStringorNumber.checkNumber(rentAreaFrom) || checkStringorNumber.checkNumber(rentAreaTo)) {
                 if (rentAreaTo != null) {
-                    sql.append(" AND b.rentprice <=" + it.getValue());
+                    sql.append(" AND b.rentprice <= " + it.getValue());
                 }
                 if (rentAreaFrom != null) {
-                    sql.append(" AND b.rentprice >=" + it.getValue());
+                    sql.append(" AND b.rentprice >= " + it.getValue());
                 }
             }
         }
@@ -98,19 +101,22 @@ public class BuildingRepositoryImpl implements BuildingRepository {
         // nen tao 3 cai ham de lam theo de de debug
         StringBuilder sql = new StringBuilder();
         sql.append(
-                "SELECT b.name , b.ward , b.street , b.districtid , b.numberofbasement , b.managername, b.managerphonenumber,b.floorarea,b.rentprice,b.servicefee,b.brokeragefee FROM building b ");
+                "SELECT b.id ,b.name , b.ward , b.street , b.districtid , b.numberofbasement , b.managername, b.managerphonenumber,b.floorarea,b.rentprice,b.servicefee,b.brokeragefee FROM building b ");
         // tao lenh join
         jointable(params, typeCode, sql);
         sql.append("WHERE 1 = 1 ");
         normalQuery(params, typeCode, sql);
         specialQuery(params, typeCode, sql);
+        sql.append(" GROUP BY b.id");
+        System.out.println(sql.toString());
         List<BuildingEnity> result = new ArrayList<>();
-        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+        try (Connection conn = ConnectionSQL.getConnection();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(sql.toString());) {
             while (rs.next()) {
                 // ... lam sau
                 BuildingEnity building = new BuildingEnity();
+                building.setId(rs.getLong("id"));
                 building.setName(rs.getString("name"));
                 building.setWard(rs.getString("ward"));
                 building.setStreet(rs.getString("street"));

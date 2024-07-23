@@ -8,26 +8,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.bean.BuildingFullEnities;
-import com.example.demo.repository.impl.BuildingRepositoryImpl;
 import com.example.demo.service.impl.BuildingServiceImpl;
+
 import org.springframework.web.bind.annotation.GetMapping;
+
 //tao ra cai controller de quan ly 4 yeu cau cua web
 // import org.springframework.web.bind.annotation.PutMapping;
-// import org.springframework.web.bind.annotation.RequestBody;
-
 @RestController
 public class BuildingAPI {
     @Autowired
-    private BuildingServiceImpl buildingServiceImpl;
-    @Autowired
-    private BuildingRepositoryImpl buildingRepositoryImpl;
+    private BuildingServiceImpl buildingService;
 
     @GetMapping("/api/building/search/")
-    // tra ve 11 cai field ma minh can
-    // list thi can
     public List<BuildingFullEnities> getBuilding(@RequestParam(required = false) Map<String, Object> params,
             @RequestParam(value = "typecode", required = false) List<String> typeCode) {
-        List<BuildingFullEnities> result = buildingRepositoryImpl.findAll(params, typeCode);
+        List<BuildingFullEnities> result = buildingService.findAll(params, typeCode);
         return result;
     }
 
