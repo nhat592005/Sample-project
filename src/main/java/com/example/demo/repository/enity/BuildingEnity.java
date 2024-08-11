@@ -1,25 +1,26 @@
 package com.example.demo.repository.enity;
 
 //day co the duoc coi la javabean nơi hứng dữ lieju của tất cả và từ đó trôi và phân lọc ra các bean bên ngoài 
+//nơi lấy database từ mysql
 public class BuildingEnity {
     private String name;
     private String ward;
     private String street;
-    private long numberofbasement;
-    private long districtid;
+    private Integer numberofbasement;
+    private Long districtid;
     private String managername;
     private String servicefee;
     private String managerphonenumber;
-    private long floorarea;
-    private long rentprice;
-    private long brokeragefee;
-    private long id;
+    private Long floorarea;
+    private Long rentprice;
+    private Long brokeragefee;
+    private Long id;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -47,19 +48,19 @@ public class BuildingEnity {
         this.street = street;
     }
 
-    public long getNumberofbasement() {
+    public Integer getNumberofbasement() {
         return numberofbasement;
     }
 
-    public void setNumberofbasement(long numberofbasement) {
+    public void setNumberofbasement(Integer numberofbasement) {
         this.numberofbasement = numberofbasement;
     }
 
-    public long getDistrictid() {
+    public Long getDistrictid() {
         return districtid;
     }
 
-    public void setDistrictid(long districtid) {
+    public void setDistrictid(Long districtid) {
         this.districtid = districtid;
     }
 
@@ -87,27 +88,27 @@ public class BuildingEnity {
         this.managerphonenumber = managerphonenumber;
     }
 
-    public long getFloorarea() {
+    public Long getFloorarea() {
         return floorarea;
     }
 
-    public void setFloorarea(long floorarea) {
+    public void setFloorarea(Long floorarea) {
         this.floorarea = floorarea;
     }
 
-    public long getRentprice() {
+    public Long getRentprice() {
         return rentprice;
     }
 
-    public void setRentprice(long rentprice) {
+    public void setRentprice(Long rentprice) {
         this.rentprice = rentprice;
     }
 
-    public long getBrokeragefee() {
+    public Long getBrokeragefee() {
         return brokeragefee;
     }
 
-    public void setBrokeragefee(long brokeragefee) {
+    public void setBrokeragefee(Long brokeragefee) {
         this.brokeragefee = brokeragefee;
     }
 

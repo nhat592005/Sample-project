@@ -3,16 +3,17 @@ package com.example.demo.bean;
 public class BuildingFullEnities {
     private String name;
     private String adress;
-    private long numberOfBasement;
+    private Integer numberOfBasement;
     private String managerName;
     private String managerPhoneNumber;
-    private long floorArea;
+    private Long floorArea;
     private String emptyArea;
-    private long rentPrice;
+    private Long rentPrice;
     private String serviceFee;
-    private long brokerageFee;
+    private Long brokerageFee;
     private String rentArea;
 
+    // còn đây là bean để database kết quả ;
     @Override
     public String toString() {
         return "BuildingFullEnities [name=" + name + ", adress=" + adress + ", numberOfBasements=" + numberOfBasement
@@ -37,11 +38,11 @@ public class BuildingFullEnities {
         this.adress = adress;
     }
 
-    public long getNumberOfBasements() {
+    public Integer getNumberOfBasements() {
         return numberOfBasement;
     }
 
-    public void setNumberOfBasements(long numberOfBasement) {
+    public void setNumberOfBasements(Integer numberOfBasement) {
         this.numberOfBasement = numberOfBasement;
     }
 
@@ -61,11 +62,11 @@ public class BuildingFullEnities {
         this.managerPhoneNumber = managerPhoneNumber;
     }
 
-    public long getFloorArea() {
+    public Long getFloorArea() {
         return floorArea;
     }
 
-    public void setFloorArea(long floorArea) {
+    public void setFloorArea(Long floorArea) {
         this.floorArea = floorArea;
     }
 
@@ -77,11 +78,11 @@ public class BuildingFullEnities {
         this.emptyArea = emptyArea;
     }
 
-    public long getRentPrice() {
+    public Long getRentPrice() {
         return rentPrice;
     }
 
-    public void setRentPrice(long rentPrice) {
+    public void setRentPrice(Long rentPrice) {
         this.rentPrice = rentPrice;
     }
 
@@ -93,11 +94,11 @@ public class BuildingFullEnities {
         this.serviceFee = serviceFee;
     }
 
-    public long getBrokerageFee() {
+    public Long getBrokerageFee() {
         return brokerageFee;
     }
 
-    public void setBrokerageFee(long brokerageFee) {
+    public void setBrokerageFee(Long brokerageFee) {
         this.brokerageFee = brokerageFee;
     }
 

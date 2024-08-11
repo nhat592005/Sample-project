@@ -1,7 +1,7 @@
 package com.example.demo.repository.enity;
 
 public class DistrictEnity {
-    private long id;
+    private Long id;
     private String name, code;
 
     public long getId() {
