@@ -13,6 +13,8 @@ import com.example.demo.repository.ultis.MapUltil;
 @Component
 public class BuildingSearchBuilderConverter {
     // đây là thay vì dùng map bị hạn chế 1 số thứ
+    // sau khi call api tu frontend thi den day de xu ly du lieu thanh 1 khoi bean
+    // sau đó mới xuống phần repository để lấy dữ liệu từ sql
     public BuildingSearchBuilder tobBuildingSearchBuilder(Map<String, Object> params, List<String> typeCode) {
         BuildingSearchBuilder buildingSearchBuilder = new BuildingSearchBuilder.Builder()
                 .setName(MapUltil.getObject(params, "name", String.class))

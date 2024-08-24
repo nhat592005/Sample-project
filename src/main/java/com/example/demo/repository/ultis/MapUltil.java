@@ -3,10 +3,12 @@ package com.example.demo.repository.ultis;
 import java.util.Map;
 
 public class MapUltil {
-    // tclass là cái trả về từ cái field mà ng dùng trả về ;
+    // tclass là cái trả về từ cái field mà ng dùng trả về tức là trả về 1 kiểu dữ
+    // liệu;
     // đảm bảo rằng giá trị được lấy từ params có thể được chuyển đổi đúng kiểu dữ
     // liệu và không gây ra ngoại lệ khi chuyển đổi
-    //
+    // kiểm tra xem có value hay j không và chuyển đổi nó
+
     public static <T> T getObject(Map<String, Object> params, String key, Class<T> tClass) {
         // cai nay de lay du lieu tu column nếu có trong đấy nếu không có value thì trả
         // về null;

@@ -5,6 +5,8 @@ import java.util.List;
 
 //viec lam cái builder này giúp mỗi hàm tranh cái việc có 3 tham só ;
 //cai nay su dung cho repository ko phai ket qua cua service
+//nhiệm vụ cái này là rút gọn nững thamsoo mà chỉ còn đúing 1 cái tham số duy nhất
+
 public class BuildingSearchBuilder {
     private String name;
     private Long floorarea;

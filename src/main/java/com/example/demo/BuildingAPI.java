@@ -22,6 +22,7 @@ public class BuildingAPI {
     @GetMapping("/api/building/search/")
     public List<BuildingFullEnities> getBuilding(@RequestParam(required = false) Map<String, Object> params,
             @RequestParam(value = "typeCode", required = false) List<String> typeCode) {
+        // khi đó tầng view sẽ phải xuống service để tìm dữ liệu
         List<BuildingFullEnities> result = buildingService.findAll(params, typeCode);
         return result;
     }

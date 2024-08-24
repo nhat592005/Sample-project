@@ -18,6 +18,8 @@ import com.example.demo.repository.ultis.ConnectionSQL;
 //nen nho ko dc thieu khong ala k chay dc
 @Repository
 public class BuildingRepositoryImpl implements BuildingRepository {
+    // sau khi convert tất cả dữ liệu rồi thì sẽ có chỉ cần dùng cái
+    // buildingsearchbuilder
 
     public static void jointable(BuildingSearchBuilder buildingSearchBuilder, StringBuilder sql) {
         // nen lam moi thu ro rang theo string hoac j do cx dc
@@ -63,16 +65,20 @@ public class BuildingRepositoryImpl implements BuildingRepository {
         // }
         try {
             /// bat dau lay du lieu cho design building patter;
+            // tạo 1 cái mảng field để lưu các field
             Field fields[] = BuildingSearchBuilder.class.getDeclaredFields();
             for (Field item : fields) {
                 // accesible la cho phep de duyet cac field;
                 // bat buoc la phai dung true
                 item.setAccessible(true);
+                // lấy tên key field
                 String fieldName = item.getName();
                 // fieldname co the dc coi la key
                 // con value la cai gia tri cua cai itemfield tra ra khi quet
+                // cái fieldname đặc biệt đã dc xử lỹ ở trên nên k cần nữa
                 if (!fieldName.equals("staffId") && !fieldName.equals("typeCode") && !fieldName.equals("areaTo")
                         && !fieldName.equals("areaFrom") && !fieldName.startsWith("rentp")) {
+                    // item tức là field nên đây là lấy value của cái field đấy
                     Object value = item.get(buildingSearchBuilder);
                     if (value != null) {
                         if (item.getType().getName().equals("java.lang.Long")
@@ -144,15 +150,17 @@ public class BuildingRepositoryImpl implements BuildingRepository {
         List<BuildingEnity> result = new ArrayList<>();
         try (Connection conn = ConnectionSQL.getConnection();
                 Statement stmt = conn.createStatement();
+                // cái này là đẻ thực hiện câu query ở trên
                 ResultSet rs = stmt.executeQuery(sql.toString());) {
             while (rs.next()) {
                 // ... lam sau
+                // lay du lieu để chuyển cho service
                 BuildingEnity building = new BuildingEnity();
                 building.setId(rs.getLong("id"));
                 building.setName(rs.getString("name"));
                 building.setWard(rs.getString("ward"));
                 building.setStreet(rs.getString("street"));
-                building.setDistrictid(rs.getLong("districtid"));
+                // building.setDistrictid(rs.getLong("districtid"));
                 building.setNumberofbasement(rs.getInt("numberofbasement"));
                 building.setManagername(rs.getString("managername"));
                 building.setManagerphonenumber(rs.getString("managerphonenumber"));

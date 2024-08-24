@@ -28,9 +28,12 @@ public class BuildingFullEnitiesConverter {
     private ModelMapper modelMapper;
 
     public BuildingFullEnities BuildingConverter(BuildingEnity item) {
+        // model mapper là đã lấy hết tất cả dữ liệu cùng tên r
+        // còn những cái như name hay adress thì phải set riêng
+        // sau đó chuyển ra ngoài
         BuildingFullEnities building = modelMapper.map(item, BuildingFullEnities.class);
         building.setName(item.getName());
-        DistrictEnity district = districtRepositoryImpl.findNameById(item.getDistrictid());
+        DistrictEnity district = districtRepositoryImpl.findNameById(item.getDistrict());
         building.setAdress(item.getStreet() + " " + item.getWard() + " " + district.getName());
         List<RentAreaEnity> rentArea = rentAreaRepository.getValueById(item.getId());
         // map = filter ;

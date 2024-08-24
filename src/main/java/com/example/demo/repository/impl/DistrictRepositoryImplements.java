@@ -18,7 +18,7 @@ public class DistrictRepositoryImplements implements DistrictRepository {
     static final String PASS = "nhat2353";
 
     @Override
-    public DistrictEnity findNameById(Long value) {
+    public DistrictEnity findNameById(DistrictEnity value) {
         String sql = "SELECT d.name FROM district d WHERE d.id = " + value + ";";
         DistrictEnity district = new DistrictEnity();
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);

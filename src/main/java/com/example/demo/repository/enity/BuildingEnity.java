@@ -1,20 +1,76 @@
 package com.example.demo.repository.enity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
 //day co the duoc coi la javabean nơi hứng dữ lieju của tất cả và từ đó trôi và phân lọc ra các bean bên ngoài 
 //nơi lấy database từ mysql
+@Entity
+@Table(name = "building")
 public class BuildingEnity {
-    private String name;
-    private String ward;
-    private String street;
-    private Integer numberofbasement;
-    private Long districtid;
-    private String managername;
-    private String servicefee;
-    private String managerphonenumber;
-    private Long floorarea;
-    private Long rentprice;
-    private Long brokeragefee;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    // còn đây nếu là districtid là khóa ngoại và nghĩa là mỗi building chỉ có chứa
+    // 1 district
+    @ManyToOne(fetch = FetchType.LAZY)
+    // tuc la no tao luon column districtid vs nó là khóa ngoại
+    @JoinColumn(name = "districtid")
+    private DistrictEnity district;
+
+    @OneToMany(mappedBy = "building")
+    private List<RentAreaEnity> items = new ArrayList<>();
+
+    @Column(name = "name")
+    private String name;
+    @Column(name = "ward")
+    private String ward;
+    @Column(name = "street")
+    private String street;
+    @Column(name = "numberofbasement")
+    private Integer numberofbasement;
+    // @Column(name = "districtid")
+    // private Long districtid;
+    @Column(name = "managername")
+    private String managername;
+    @Column(name = "servicefee")
+    private String servicefee;
+    @Column(name = "managerphonenumber")
+    private String managerphonenumber;
+    @Column(name = "floorarea")
+    private Long floorarea;
+    @Column(name = "rentprice")
+    private Long rentprice;
+    @Column(name = "brokeragefee")
+    private Long brokeragefee;
+
+    public List<RentAreaEnity> getItems() {
+        return items;
+    }
+
+    public void setItems(List<RentAreaEnity> items) {
+        this.items = items;
+    }
+
+    public DistrictEnity getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(DistrictEnity district) {
+        this.district = district;
+    }
 
     public Long getId() {
         return id;
@@ -56,13 +112,13 @@ public class BuildingEnity {
         this.numberofbasement = numberofbasement;
     }
 
-    public Long getDistrictid() {
-        return districtid;
-    }
+    // public Long getDistrictid() {
+    // return districtid;
+    // }
 
-    public void setDistrictid(Long districtid) {
-        this.districtid = districtid;
-    }
+    // public void setDistrictid(Long districtid) {
+    // this.districtid = districtid;
+    // }
 
     public String getManagername() {
         return managername;
@@ -115,7 +171,7 @@ public class BuildingEnity {
     @Override
     public String toString() {
         return "BuildingEnity [name=" + name + ", ward=" + ward + ", street=" + street + ", numberofbasement="
-                + numberofbasement + ", districtid=" + districtid + ", managername=" + managername + ", servicefee="
+                + numberofbasement + ", districtid=" + ", managername=" + managername + ", servicefee="
                 + servicefee + ", managerphonenumber=" + managerphonenumber + ", floorarea=" + floorarea
                 + ", rentprice=" + rentprice + ", brokeragefee=" + brokeragefee + "]";
     }
