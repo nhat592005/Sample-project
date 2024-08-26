@@ -2,8 +2,8 @@ package com.example.demo.repository;
 
 import java.util.List;
 
-import com.example.demo.repository.enity.RentAreaEnity;
+import com.example.demo.repository.entity.RentAreaEntity;
 
 public interface RentAreaRepository {
-    public List<RentAreaEnity> getValueById(Long id);
+    public List<RentAreaEntity> getValueById(Long id);
 }

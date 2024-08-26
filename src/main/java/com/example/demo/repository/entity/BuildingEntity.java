@@ -1,4 +1,4 @@
-package com.example.demo.repository.enity;
+package com.example.demo.repository.entity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ import jakarta.persistence.Table;
 //nơi lấy database từ mysql
 @Entity
 @Table(name = "building")
-public class BuildingEnity {
+public class BuildingEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,10 +28,10 @@ public class BuildingEnity {
     @ManyToOne(fetch = FetchType.LAZY)
     // tuc la no tao luon column districtid vs nó là khóa ngoại
     @JoinColumn(name = "districtid")
-    private DistrictEnity district;
+    private DistrictEntity district;
 
     @OneToMany(mappedBy = "building")
-    private List<RentAreaEnity> items = new ArrayList<>();
+    private List<RentAreaEntity> items = new ArrayList<>();
 
     @Column(name = "name")
     private String name;
@@ -55,20 +55,22 @@ public class BuildingEnity {
     private Long rentprice;
     @Column(name = "brokeragefee")
     private Long brokeragefee;
+    @Column(name = "rentpricedescription")
+    private String rentpricedescription;
 
-    public List<RentAreaEnity> getItems() {
+    public List<RentAreaEntity> getItems() {
         return items;
     }
 
-    public void setItems(List<RentAreaEnity> items) {
+    public void setItems(List<RentAreaEntity> items) {
         this.items = items;
     }
 
-    public DistrictEnity getDistrict() {
+    public DistrictEntity getDistrict() {
         return district;
     }
-
-    public void setDistrict(DistrictEnity district) {
+    //lưu ý này
+    public void setDistrict(DistrictEntity district) {
         this.district = district;
     }
 
@@ -174,5 +176,13 @@ public class BuildingEnity {
                 + numberofbasement + ", districtid=" + ", managername=" + managername + ", servicefee="
                 + servicefee + ", managerphonenumber=" + managerphonenumber + ", floorarea=" + floorarea
                 + ", rentprice=" + rentprice + ", brokeragefee=" + brokeragefee + "]";
+    }
+
+    public String getRentpricedescription() {
+        return rentpricedescription;
+    }
+
+    public void setRentpricedescription(String rentpricedescription) {
+        this.rentpricedescription = rentpricedescription;
     }
 }

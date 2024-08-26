@@ -3,9 +3,9 @@ package com.example.demo.bean;
 public class BuildingFullEnities {
     private String name;
     private String adress;
-    private Integer numberOfBasement;
-    private String managerName;
-    private String managerPhoneNumber;
+    private Integer numberofbasement;
+    private String managername;
+    private String managerphonenumber;
     private Long floorArea;
     private String emptyArea;
     private Long rentPrice;
@@ -14,14 +14,6 @@ public class BuildingFullEnities {
     private String rentArea;
 
     // còn đây là bean để database kết quả ;
-    @Override
-    public String toString() {
-        return "BuildingFullEnities [name=" + name + ", adress=" + adress + ", numberOfBasements=" + numberOfBasement
-                + ", managerName=" + managerName + ", managerPhoneNumber=" + managerPhoneNumber + ", floorArea="
-                + floorArea + ", emptyArea=" + emptyArea + ", rentPrice=" + rentPrice + ", serviceFee=" + serviceFee
-                + ", brokerageFee=" + brokerageFee + ", rentArea=" + rentArea + "]";
-    }
-
     public String getName() {
         return name;
     }
@@ -38,28 +30,28 @@ public class BuildingFullEnities {
         this.adress = adress;
     }
 
-    public Integer getNumberOfBasements() {
-        return numberOfBasement;
+    public Integer getNumberOfBasement() {
+        return numberofbasement;
     }
 
-    public void setNumberOfBasements(Integer numberOfBasement) {
-        this.numberOfBasement = numberOfBasement;
+    public void setNumberOfBasement(Integer numberofBasement) {
+        this.numberofbasement = numberofBasement;
     }
 
     public String getManagerName() {
-        return managerName;
+        return managername;
     }
 
     public void setManagerName(String managerName) {
-        this.managerName = managerName;
+        this.managername = managerName;
     }
 
     public String getManagerPhoneNumber() {
-        return managerPhoneNumber;
+        return managerphonenumber;
     }
 
     public void setManagerPhoneNumber(String managerPhoneNumber) {
-        this.managerPhoneNumber = managerPhoneNumber;
+        this.managerphonenumber = managerPhoneNumber;
     }
 
     public Long getFloorArea() {

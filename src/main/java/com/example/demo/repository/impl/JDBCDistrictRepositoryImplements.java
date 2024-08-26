@@ -9,18 +9,19 @@ import java.sql.Statement;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.repository.DistrictRepository;
-import com.example.demo.repository.enity.DistrictEnity;
+import com.example.demo.repository.entity.DistrictEntity;
 
+//không cần thiết khi sử dụng jpa
 @Repository
-public class DistrictRepositoryImplements implements DistrictRepository {
+public class JDBCDistrictRepositoryImplements implements DistrictRepository {
     static final String DB_URL = "jdbc:mysql://localhost:3306/estatebasic";
     static final String USER = "nhatdo";
     static final String PASS = "nhat2353";
 
     @Override
-    public DistrictEnity findNameById(DistrictEnity value) {
+    public DistrictEntity findNameById(DistrictEntity value) {
         String sql = "SELECT d.name FROM district d WHERE d.id = " + value + ";";
-        DistrictEnity district = new DistrictEnity();
+        DistrictEntity district = new DistrictEntity();
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(sql);) {

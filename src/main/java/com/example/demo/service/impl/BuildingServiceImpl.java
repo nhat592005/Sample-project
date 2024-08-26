@@ -12,7 +12,7 @@ import com.example.demo.builder.BuildingSearchBuilder;
 import com.example.demo.converter.BuildingFullEnitiesConverter;
 import com.example.demo.converter.BuildingSearchBuilderConverter;
 import com.example.demo.repository.BuildingRepository;
-import com.example.demo.repository.enity.BuildingEnity;
+import com.example.demo.repository.entity.BuildingEntity;
 import com.example.demo.service.BuildingService;
 
 @Service
@@ -31,14 +31,14 @@ public class BuildingServiceImpl implements BuildingService {
         // tao 1 bean de lay tat du lieu tu cai search builder duoi tang repo
         BuildingSearchBuilder buildingSearchBuilder = buildingSearchBuilderConverter.tobBuildingSearchBuilder(params,
                 typeCode);
-        List<BuildingEnity> buildingEnities = buildingRepositoryImpl.findAll(buildingSearchBuilder);
+        List<BuildingEntity> buildingEnities = buildingRepositoryImpl.findAll(buildingSearchBuilder);
         // result chua du lieu de tra ve cho view
         List<BuildingFullEnities> result = new ArrayList<>();
         // fileter loc
         // item duyet qua tat ca buildingEnitites
         // khi day item se la coi như là buildingentities tức là nó sẽ kiếm đầy đủ các
         // chức của nó và khi drop thì item sẽ là ng nắm data
-        for (BuildingEnity item : buildingEnities) {
+        for (BuildingEntity item : buildingEnities) {
             // bat dau ghep tu la xu lycac logic sau khi lay dc cac database
             // se de dang sau khi co duoc tat ca ca du kien
             BuildingFullEnities building = new BuildingFullEnities();

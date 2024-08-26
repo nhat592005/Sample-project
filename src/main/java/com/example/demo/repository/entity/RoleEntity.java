@@ -1,40 +1,41 @@
-package com.example.demo.repository.enity;
+package com.example.demo.repository.entity;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "district")
-public class DistrictEnity {
+@Table(name = "role")
+public class RoleEntity {
+    // id la da tu tao column r
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "name")
+    // ten role
+    @Column(name = "name", nullable = false, unique = false)
     private String name;
 
-    @Column(name = "code")
+    @Column(name = "code", nullable = false)
     private String code;
-    // nếu k ghi fetch type thì nó sẽ mặc định là lazy
-    // nó giống kiểu search theo id nếu có districtid thì sẽ hiện ra tất cả
-    // buildingenity
-    // 1 district có thể chứa nhiều building
-    @OneToMany(mappedBy = "district")
-    private List<BuildingEnity> items = new ArrayList<>();
 
-    public long getId() {
+    @ManyToMany(mappedBy = "roles" , fetch = FetchType.LAZY)
+    private List<UserEntity> users = new  ArrayList<>();
+
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -53,5 +54,14 @@ public class DistrictEnity {
     public void setCode(String code) {
         this.code = code;
     }
+
+    public List<UserEntity> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<UserEntity> users) {
+        this.users = users;
+    }
+
 
 }

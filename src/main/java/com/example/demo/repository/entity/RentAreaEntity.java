@@ -1,4 +1,4 @@
-package com.example.demo.repository.enity;
+package com.example.demo.repository.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,7 +12,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "rentarea")
-public class RentAreaEnity {
+public class RentAreaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
@@ -24,13 +24,14 @@ public class RentAreaEnity {
     // many to one co san fet lazy
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "buildingid")
-    private BuildingEnity building;
+    //nhớ cái kia building phải cùng tên vs cái mappedby bên onetomany
+    private BuildingEntity building;
 
-    public BuildingEnity getBuilding() {
+    public BuildingEntity getBuilding() {
         return building;
     }
 
-    public void setBuilding(BuildingEnity building) {
+    public void setBuilding(BuildingEntity building) {
         this.building = building;
     }
 

@@ -1,20 +1,13 @@
-package com.example.demo.repository.enity;
+package com.example.demo.repository.entity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "user")
-public class UserEnity {
+public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -34,9 +27,13 @@ public class UserEnity {
     @Column(name = "email")
     private String email;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<UserRoleEnity> userEnities = new ArrayList<>();
-
+    //nen tao se k co id
+    @ManyToMany(fetch = FetchType.LAZY)
+    // jointable la table trung gian
+    // jointable co 3 tham so can dien vao
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "userid", nullable = false), inverseJoinColumns = @JoinColumn(name = "roleid", nullable = false))
+    private List<RoleEntity> roles = new ArrayList<>();
+    
     public Long getId() {
         return id;
     }
@@ -85,12 +82,12 @@ public class UserEnity {
         this.email = email;
     }
 
-    public List<UserRoleEnity> getUsers() {
-        return userEnities;
+    public List<RoleEntity> getRoles() {
+        return roles;
     }
 
-    public void setUsers(List<UserRoleEnity> user) {
-        this.userEnities = user;
+    public void setRoles(List<RoleEntity> roles) {
+        this.roles = roles;
     }
 
 }

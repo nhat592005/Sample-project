@@ -1,11 +1,10 @@
-package com.example.demo.repository.enity;
+package com.example.demo.repository.entity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -13,27 +12,29 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "role")
-public class RoleEnity {
-    // id la da tu tao column r
+@Table(name = "district")
+public class DistrictEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    // ten role
-    @Column(name = "name", nullable = false, unique = false)
+
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "code", nullable = false)
+    @Column(name = "code")
     private String code;
+    // nếu k ghi fetch type thì nó sẽ mặc định là lazy
+    // nó giống kiểu search theo id nếu có districtid thì sẽ hiện ra tất cả
+    // buildingenity
+    // 1 district có thể chứa nhiều building
+    @OneToMany(mappedBy = "district")
+    private List<BuildingEntity> items = new ArrayList<>();
 
-    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
-    private List<UserRoleEnity> roleEnities = new ArrayList<>();
-
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -51,14 +52,6 @@ public class RoleEnity {
 
     public void setCode(String code) {
         this.code = code;
-    }
-
-    public List<UserRoleEnity> getRoles() {
-        return roleEnities;
-    }
-
-    public void setRoles(List<UserRoleEnity> roles) {
-        this.roleEnities = roles;
     }
 
 }

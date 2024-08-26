@@ -1,7 +1,7 @@
 package com.example.demo.repository;
 
-import com.example.demo.repository.enity.DistrictEnity;
+import com.example.demo.repository.entity.DistrictEntity;
 
 public interface DistrictRepository {
-    DistrictEnity findNameById(DistrictEnity value);
+    DistrictEntity findNameById(DistrictEntity value);
 }

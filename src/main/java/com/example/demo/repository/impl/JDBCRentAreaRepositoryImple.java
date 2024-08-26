@@ -10,20 +10,21 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.repository.RentAreaRepository;
-import com.example.demo.repository.enity.RentAreaEnity;
+import com.example.demo.repository.entity.RentAreaEntity;
 import com.example.demo.repository.ultis.ConnectionSQL;
 
+//không cần thiết khi sử dụng jpa
 @Repository
-public class RentAreaRepositoryImple implements RentAreaRepository {
+public class JDBCRentAreaRepositoryImple implements RentAreaRepository {
     @Override
-    public List<RentAreaEnity> getValueById(Long id) {
+    public List<RentAreaEntity> getValueById(Long id) {
         String sql = "SELECT * FROM rentarea r  WHERE r.buildingid =  " + id;
-        List<RentAreaEnity> rentArea = new ArrayList<>();
+        List<RentAreaEntity> rentArea = new ArrayList<>();
         try (Connection conn = ConnectionSQL.getConnection();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                RentAreaEnity rentAreaEnity = new RentAreaEnity();
+                RentAreaEntity rentAreaEnity = new RentAreaEntity();
                 rentAreaEnity.setValue(rs.getString("value"));
                 rentArea.add(rentAreaEnity);
             }

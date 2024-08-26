@@ -8,9 +8,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.bean.BuildingFullEnities;
+import com.example.demo.repository.entity.BuildingEntity;
+import com.example.demo.repository.entity.BuildingTestDTO;
+import com.example.demo.repository.entity.DistrictEntity;
 import com.example.demo.service.impl.BuildingServiceImpl;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
+
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 //tao ra cai controller de quan ly 4 yeu cau cua web
 // import org.springframework.web.bind.annotation.PutMapping;
@@ -27,30 +38,46 @@ public class BuildingAPI {
         return result;
     }
 
-    @DeleteMapping("/api/introduce/{id}/{name}")
-    public String xoa(@PathVariable Integer id, @PathVariable String name, @RequestParam(value = "born") Integer born) {
-        System.out.println("da xoa " + name + id + born);
-        return "da xoa " + name + " " + id + " " + born;
+    @PersistenceContext
+    EntityManager entityManager;
+    //phải sử dụng transactional
+    @Transactional
+    @PostMapping("/api/building/search/")
+    public void Testpersist(@RequestBody BuildingTestDTO buildingTestDTO) {
+        BuildingEntity building = new BuildingEntity();
+        building.setName(buildingTestDTO.getName());
+        building.setWard(buildingTestDTO.getWard());
+        building.setStreet(buildingTestDTO.getStreet());
+        DistrictEntity districtEntity = new DistrictEntity();
+        districtEntity.setId(buildingTestDTO.getDistrictid());
+        building.setDistrict(districtEntity);
+        building.setNumberofbasement(buildingTestDTO.getNumberofbasements());
+        entityManager.persist(building);
+        System.out.println("OK thành công");
     }
 
-    @GetMapping("/api/test")
-    public String test(@RequestParam Map<String, String> map) {
-        StringBuilder sql = new StringBuilder();
-        sql.append("SELECT * FROM building b WHERE 1=1 ");
-        for (Map.Entry<String, String> pair : map.entrySet()) {
-            String key = pair.getKey();
-            String value = pair.getValue();
-            if (key.equals("name") && !key.isEmpty()) {
-                sql.append("AND b.name = '%" + value + "%' ");
-            }
-            if (key.equals("namsinh")) {
-                sql.append("AND b.namsinh = " + value + " ");
-            }
-            if (key.equals("ward")) {
-                sql.append("AND b.ward =" + value + " ");
-            }
-        }
-        return sql.toString();
+    @Transactional
+    @PutMapping("/api/building/search/")
+    public void TestMerge(@RequestBody BuildingTestDTO buildingTestDTO) {
+        BuildingEntity building = new BuildingEntity();
+        building.setId(2L);
+        building.setName(buildingTestDTO.getName());
+        building.setWard(buildingTestDTO.getWard());
+        building.setStreet(buildingTestDTO.getStreet());
+        DistrictEntity districtEntity = new DistrictEntity();
+        districtEntity.setId(buildingTestDTO.getDistrictid());
+        building.setDistrict(districtEntity);
+        entityManager.merge(building);
+        System.out.println("OK thành công");
     }
+
+    @DeleteMapping("/api/building/search/{id}")
+    @Transactional
+    public void xoa(@PathVariable Long id) {
+        BuildingEntity buildingEntity = entityManager.find(BuildingEntity.class,id);
+        entityManager.remove(buildingEntity);
+        System.out.println("OK thành công");
+    }
+
 
 }
