@@ -1,4 +1,4 @@
-package com.example.demo.repository.impl;
+package com.example.demo.repository.custom.imp;
 
 import java.util.List;
 
@@ -13,12 +13,12 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 
 @Repository
-public class BuildingRepositoryImpl implements BuildingRepository {
+public class BuildingRepositoryImpl {
     @PersistenceContext
     private EntityManager entityManager;
 
     @SuppressWarnings("unchecked")
-    @Override
+    //@Override
     public List<BuildingEntity> findAll(BuildingSearchBuilder buildingSearchBuilder) {
         // JPQL format
         // thuc hien cau quey thay vi jdbc la enity manager

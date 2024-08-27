@@ -1,4 +1,4 @@
-package com.example.demo.repository.impl;
+package com.example.demo.repository.custom.imp;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -17,7 +17,7 @@ import jakarta.persistence.PersistenceContext;
 //nen nho ko dc thieu khong ala k chay dc
 @Repository
 @Primary
-public class JDBCBuildingRepositoryImpl implements BuildingRepository {
+public class JDBCBuildingRepositoryImpl  {
     // sau khi convert tất cả dữ liệu rồi thì sẽ có chỉ cần dùng cái
     // buildingsearchbuilder
     @PersistenceContext
@@ -135,7 +135,7 @@ public class JDBCBuildingRepositoryImpl implements BuildingRepository {
 
     // dung khi implement vs interface khac
     @SuppressWarnings("unchecked")
-    @Override
+    //@Override
     public List<BuildingEntity> findAll(BuildingSearchBuilder buildingSearchBuilder) {
         // nen tao query theo quy tac SELECT -> Join(neu co) -> normalQuery ->
         // specialQuery

@@ -18,7 +18,7 @@ import com.example.demo.service.BuildingService;
 @Service
 public class BuildingServiceImpl implements BuildingService {
     @Autowired
-    private BuildingRepository buildingRepositoryImpl;
+    private BuildingRepository buildingRepository;
     @Autowired
     private BuildingFullEnitiesConverter BuildingFullEnitiesConverter;
     @Autowired
@@ -31,7 +31,8 @@ public class BuildingServiceImpl implements BuildingService {
         // tao 1 bean de lay tat du lieu tu cai search builder duoi tang repo
         BuildingSearchBuilder buildingSearchBuilder = buildingSearchBuilderConverter.tobBuildingSearchBuilder(params,
                 typeCode);
-        List<BuildingEntity> buildingEnities = buildingRepositoryImpl.findAll(buildingSearchBuilder);
+                //cái buildingRepository đã được extend của JPA sẽ có các hàm SPRING BOOT JPA hỗ trợ ngon hơn nhiều 
+        List<BuildingEntity> buildingEnities = buildingRepository.findAll();
         // result chua du lieu de tra ve cho view
         List<BuildingFullEnities> result = new ArrayList<>();
         // fileter loc
