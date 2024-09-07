@@ -1,12 +1,12 @@
-package com.example.demo.converter;
+package com.example.demo.Converter;
 
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
-import com.example.demo.builder.BuildingSearchBuilder;
-import com.example.demo.repository.ultis.MapUltil;
+import com.example.demo.Builder.BuildingSearchBuilder;
+import com.example.demo.Ultis.MapUltil;
 
 //Xây dựng đối tượng: Phương thức build() sẽ trả về một đối tượng BuildingSearchBuilder với các thuộc tính đã được thiết lập.
 //setName(MapUltil.getObject(params, "name", String.class)): Lấy giá trị của tham số "name" từ params và thiết lập nó cho thuộc tính name của đối tượng BuildingSearchBuilder.

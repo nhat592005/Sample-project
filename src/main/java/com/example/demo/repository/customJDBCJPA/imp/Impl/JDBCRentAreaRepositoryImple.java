@@ -1,4 +1,4 @@
-package com.example.demo.repository.custom.imp;
+package com.example.demo.Repository.customJDBCJPA.imp.Impl;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -9,9 +9,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.repository.RentAreaRepository;
-import com.example.demo.repository.entity.RentAreaEntity;
-import com.example.demo.repository.ultis.ConnectionSQL;
+import com.example.demo.Repository.Interface.RentAreaRepository;
+import com.example.demo.Repository.entity.RentAreaEntity;
+import com.example.demo.Ultis.ConnectionSQL;
 
 //không cần thiết khi sử dụng jpa
 @Repository

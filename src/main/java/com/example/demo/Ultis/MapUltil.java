@@ -1,4 +1,4 @@
-package com.example.demo.repository.ultis;
+package com.example.demo.Ultis;
 
 import java.util.Map;
 

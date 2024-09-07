@@ -1,4 +1,4 @@
-package com.example.demo.repository.custom.imp;
+package com.example.demo.Repository.customJDBCJPA.imp.Impl;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -7,17 +7,18 @@ import java.util.stream.Collectors;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.builder.BuildingSearchBuilder;
-import com.example.demo.repository.BuildingRepository;
-import com.example.demo.repository.entity.BuildingEntity;
+import com.example.demo.Builder.BuildingSearchBuilder;
+import com.example.demo.Repository.customJDBCJPA.imp.BuildingRepositoryCustom;
+import com.example.demo.Repository.entity.BuildingEntity;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 
 //nen nho ko dc thieu khong ala k chay dc
 @Repository
 @Primary
-public class JDBCBuildingRepositoryImpl  {
+public class BuildingRepositoryImpl implements BuildingRepositoryCustom  {
     // sau khi convert tất cả dữ liệu rồi thì sẽ có chỉ cần dùng cái
     // buildingsearchbuilder
     @PersistenceContext
@@ -45,26 +46,6 @@ public class JDBCBuildingRepositoryImpl  {
     }
 
     public static void normalQuery(BuildingSearchBuilder buildingSearchBuilder, StringBuilder sql) {
-        // su xy nhung qury don gian nhu like hay = ;
-        // can tao mot bean de xem la number hay j
-        // cach 1 la su dung map cach 2 de gon gang clean thi dung design building
-        // pattern
-        // for (Map.Entry<String, Object> it : params.entrySet()) {
-        // // bat buoc phai loai bo nhung th dac biet
-        // if (!it.getKey().equals("staffid") && !it.getKey().equals("typeCode") &&
-        // !it.getKey().equals("areaTo")
-        // && !it.getKey().equals("areaFrom") && !it.getKey().startsWith("rentp")) {
-        // // bat dau viet lenh cho normal query
-        // String value = (String) it.getValue();
-        // String key = (String) it.getKey();
-        // if (checkStringorNumber.checkNumber(value)) {
-        // sql.append(" AND b." + key + " = " + value);
-        // } else if (!checkStringorNumber.checkNumber(value)) {
-        // sql.append(" AND b." + key + " LIKE '%" + value + "%' ");
-        // }
-        // }
-        // }
-        // }
         try {
             /// bat dau lay du lieu cho design building patter;
             // tạo 1 cái mảng field để lưu các field
@@ -135,7 +116,6 @@ public class JDBCBuildingRepositoryImpl  {
 
     // dung khi implement vs interface khac
     @SuppressWarnings("unchecked")
-    //@Override
     public List<BuildingEntity> findAll(BuildingSearchBuilder buildingSearchBuilder) {
         // nen tao query theo quy tac SELECT -> Join(neu co) -> normalQuery ->
         // specialQuery
@@ -150,8 +130,7 @@ public class JDBCBuildingRepositoryImpl  {
         specialQuery(buildingSearchBuilder, sql);
         sql.append(" GROUP BY b.id");
         System.out.println(sql.toString());
-        jakarta.persistence.Query query = entityManager.createNativeQuery(sql.toString(), BuildingEntity.class);
+        Query query = entityManager.createNativeQuery(sql.toString(), BuildingEntity.class);
         return query.getResultList();
-
     }
 }

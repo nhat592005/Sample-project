@@ -1,4 +1,4 @@
-package com.example.demo.repository.entity;
+package com.example.demo.Repository.entity;
 
 import java.util.ArrayList;
 import java.util.List;

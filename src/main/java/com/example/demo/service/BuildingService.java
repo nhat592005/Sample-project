@@ -1,10 +1,10 @@
-package com.example.demo.service;
+package com.example.demo.Service;
 
 import java.util.List;
 import java.util.Map;
 
-import com.example.demo.bean.BuildingFullEnities;
+import com.example.demo.DTO.BuildingDTO;
 
 public interface BuildingService {
-    List<BuildingFullEnities> findAll(Map<String, Object> params, List<String> typeCode);
+    List<BuildingDTO> findAll(Map<String, Object> params, List<String> typeCode);
 }

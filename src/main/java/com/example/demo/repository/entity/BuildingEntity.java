@@ -1,4 +1,4 @@
-package com.example.demo.repository.entity;
+package com.example.demo.Repository.entity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +32,8 @@ public class BuildingEntity {
 
     @OneToMany(mappedBy = "building")
     private List<RentAreaEntity> items = new ArrayList<>();
+    @OneToMany(mappedBy = "building")
+    private List<BuildingRentTypeEntity> buildingRentTypeEntities = new ArrayList<>();
 
     @Column(name = "name")
     private String name;
@@ -184,5 +186,12 @@ public class BuildingEntity {
 
     public void setRentpricedescription(String rentpricedescription) {
         this.rentpricedescription = rentpricedescription;
+    }
+    public List<BuildingRentTypeEntity> getBuildingRentTypeEntities() {
+        return buildingRentTypeEntities;
+    }
+
+    public void setBuildingRentTypeEntities(List<BuildingRentTypeEntity> buildingRentTypeEntities) {
+        this.buildingRentTypeEntities = buildingRentTypeEntities;
     }
 }

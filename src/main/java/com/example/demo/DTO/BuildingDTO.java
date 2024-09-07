@@ -1,6 +1,6 @@
-package com.example.demo.bean;
+package com.example.demo.DTO;
 
-public class BuildingFullEnities {
+public class BuildingDTO {
     private String name;
     private String adress;
     private Integer numberofbasement;

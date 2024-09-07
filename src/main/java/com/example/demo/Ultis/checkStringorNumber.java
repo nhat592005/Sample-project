@@ -1,4 +1,4 @@
-package com.example.demo.repository.ultis;
+package com.example.demo.Ultis;
 
 public class checkStringorNumber {
     public static boolean checkNumber(String value) {
